@@ -1,6 +1,11 @@
 import asyncio
 import json
 import os
+import sys
+
+# Фикс кодировки для Windows консоли
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -89,7 +94,7 @@ async def main():
 
         if track and track["id"] != last_track_id:
             last_track_id = track["id"]
-            print(f"Новый трек: {track['artists']} — {track['name']}")
+            print(f"Новый трек: {track['artists']} - {track['name']}", flush=True)
             await send_to_channel(track)
 
         await asyncio.sleep(CHECK_INTERVAL)
