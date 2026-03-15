@@ -14,15 +14,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") or os.getenv("SPOTIPY_CLIENT_ID")
-SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") or os.getenv("SPOTIPY_CLIENT_SECRET")
-SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI") or os.getenv("SPOTIPY_REDIRECT_URI") or "http://127.0.0.1:8888/callback"
-
-# Отладка: показать все переменные с SPOT в имени
-spot_vars = {k: v[:10] + "..." for k, v in os.environ.items() if "SPOT" in k.upper()}
-print(f"SPOT env vars: {spot_vars}")
-print(f"CLIENT_ID value: '{SPOTIFY_CLIENT_ID}'")
-print(f"All env keys: {sorted(os.environ.keys())}")
+# Railway может иметь пробелы в именах переменных, проверяем оба варианта
+SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") or os.getenv("SPOTIFY_CLIENT_ID ") or os.getenv("SPOTIPY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") or os.getenv("SPOTIFY_CLIENT_SECRET ") or os.getenv("SPOTIPY_CLIENT_SECRET")
+SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI") or os.getenv("SPOTIFY_REDIRECT_URI ") or "http://127.0.0.1:8888/callback"
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
 CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL", "10"))
